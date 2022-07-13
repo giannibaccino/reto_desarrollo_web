@@ -190,8 +190,9 @@ async function crearSubLista({ nombre, id }) {
 //eliminar subTarea
 async function eliminarSubTarea(id) {
     let options = {
-        method: "DELETE",
-        
+        method: "DELETE"
+            
+    }
     mostrarList()
 }
 /**
@@ -200,15 +201,3 @@ async function eliminarSubTarea(id) {
  * @param {*} id2 
  * @param {*} nombre 
  */
-
-
-
-
-
-
-
-
-
-
-
-

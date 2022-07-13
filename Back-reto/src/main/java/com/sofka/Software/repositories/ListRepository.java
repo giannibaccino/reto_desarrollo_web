@@ -1,11 +1,9 @@
 package com.sofka.Software.repositories;
 
 import com.sofka.Software.models.ListModel;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-/**
- *
- * Implementa JpaRepository en lugar de CrudRepository !!Important¡¡¡¡
- * */
-public interface ListRepository extends CrudRepository<ListModel, Long > {
+@Repository
+public interface ListRepository extends JpaRepository<ListModel, Long > {
 }

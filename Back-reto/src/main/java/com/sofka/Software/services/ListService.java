@@ -2,7 +2,7 @@ package com.sofka.Software.services;
 
 import com.sofka.Software.models.ListModel;
 import com.sofka.Software.repositories.ListRepository;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -28,9 +28,7 @@ public class ListService {
      * metodo eliminar lista
      * @param id
      */
-    public void deleteTask(Long id){
-        listRepository.delete(get(id));
-    }
+    public void deleteTask(Long id){ listRepository.delete(get(id)); }
 
     /**
      * verificar si el id esta entonces lo retorne , si no retorne error

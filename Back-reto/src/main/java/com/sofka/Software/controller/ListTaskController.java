@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@CrossOrigin
+@CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
 @RestController
 public class ListTaskController {
     @Autowired
@@ -26,17 +26,13 @@ public class ListTaskController {
 
     @PutMapping(path = "/listTask/{id}")
     public ListTaskModel updatelistTask(@RequestBody ListTaskModel listTask, @PathVariable(value="id") Long id ) {
-        listTaskService.updateListTask(id, listTask);
-        return null;
+        return listTaskService.updateListTask(id, listTask);
     }
 
-    /**
-     *
-     * Revisa si esto que propongo está bien o no, si no está bien ¿Como lo solucionas?
-     */
+    // Revisa si esto que propongo está bien o no, si no está bien ¿Como lo solucionas?
 
-    // @DeleteMapping(path = "/listTask/{id}")
-    // public void deletelistTask(@PathVariable("id")Long id){
-       // listTaskService.deleteListTask(id);
-    //}
-//}
+     @DeleteMapping(path = "/listTask/{id}")
+     public void deletelistTask(@PathVariable("id")Long id){
+        listTaskService.deleteListTask(id);
+     }
+}
