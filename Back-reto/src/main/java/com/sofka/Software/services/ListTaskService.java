@@ -49,6 +49,7 @@ public class ListTaskService implements IListTaskServices{
      */
     @Transactional
     public ListTaskModel updateListTask(Long id, ListTaskModel listTask) {
+        //if(get(id).getCompleted())
         listTask.setId(id);
         return listTaskRepository.save(listTask);
     }

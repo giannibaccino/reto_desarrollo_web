@@ -1,5 +1,5 @@
 body{
-    background:rgb(216, 197, 115);
+    background:rgb(226, 211, 143);
 }
 
 .container{
@@ -16,17 +16,12 @@ body{
     padding-left: 330px;
 }
 
-.input-group{
-    display: block;
-}
-
 .tbody1{
-    display: block;
-    padding-left: 270px;
+    margin: 5px;
 }
 
 #inputTarea{
-    margin-left: 270px;
+    margin-left: 300px;
 }
 
 .btn{
@@ -35,7 +30,51 @@ body{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
+.btn:hover{
+    background: rgb(226, 211, 143);
+    border:2px solid white;
+}
+
 .form-control{
     background-color: aliceblue;
     border: 1px solid black;
+}
+
+.form-control:hover{
+    background-color: rgb(212, 253, 251);
+}
+
+.form-control:focus{
+    background-color: rgb(212, 253, 251);
+}
+
+.table{
+    text-align: center;
+}
+
+.eliminar:hover{
+    background: rgb(221, 62, 62);
+    color: white;
+    border: 2px solid white ;
+}
+
+.EliminarTarea:hover{
+    background: rgb(221, 62, 62);
+    color: white;
+    border:2px solid white;
+}
+
+.agregarSubList:hover{
+    background: rgb(226, 211, 143);
+    border:2px solid white;
+}
+
+.actualizarSubList:hover{
+    background: rgb(226, 211, 143);
+    border:2px solid white;
+}
+
+.editar:hover{
+    background: rgb(173, 255, 251);
+    border:2px solid white;
 }

@@ -9,70 +9,11 @@ let resultado = ''
 let resultadoSub = ''
 let subtarea = {};
 
-   /* const $fetch = d.getElementById("cosasFetch"),
-    $fragment = d.createDocumentFragment();
-(() => {fetch(`${url}/listas`)
-.then((res) => res.ok ? res.json() : Promise.reject(res))
-.then((json) => {
-    console.log(json);
-    //$fetch.innerHTML = json;
-    json.forEach((el) => {
-        const $li = d.createElement("li");
-        $li.innerHTML = `${el.id}--${el.name}`;
-        $fragment.appendChild($li);
-    });
-    $fetch.appendChild($fragment);
-})
-.catch((err) => { //valida error
-    console.log("Entro al catch",err);
-    let message = err.statusText || "Ocurrio un error";
-    $fetch.innerHTML = `Error ${err.status}: ${message}`
-})
-.finally(() => {
-    console.log("Esto se ejecuta independiente de lo que pase")
-});
-})();*/
-
-/*(() => {
-    const $fetchAsync = d.getElementById("fetch"),
-        $fragment = d.createDocumentFragment();
-
-    async function getData(){
-        try {
-            let res = await fetch(`${url}/listas`),
-             json = await res.json();
-
-            console.log(res, json);
-
-            if(!res.ok){
-                throw {
-                    status: res.status,
-                    statusText: res.statusText
-                }
-            }
-
-            json.forEach((el) => {
-                const $li = d.createElement("li");
-                $li.innerHTML = `${el.id}--${el.name}`;
-                $fragment.appendChild($li);
-            });
-            $fetchAsync.appendChild($fragment);
-        } catch (err) {
-            console.log(err);
-            let message = err.statusText || "Ocurrio un error";
-            $fetchAsync.innerHTML = `Error ${err.status}: ${message}`
-        } finally {
-            console.log("Esto se ejecuta siempre")
-        }
-    }
-    getData();
-})();*/
-
 //funcon boton crear , permite guardar en el input el nombre de la nueva lista a crear
 $crear.addEventListener('click', e => {
     e.preventDefault();
     crearList(d.getElementById('inputTarea').value);
-
+    d.getElementById('inputTarea').value = "";
 })
 //Funcion crear lista , consulta la ruta del fetch y realiza el metodo post con los datos 
 async function crearList(lista) {
@@ -92,17 +33,14 @@ async function crearList(lista) {
         alert("Ingrese una tarea por favor!")
     }
 }
-
 //muestra las listas en la BD
 async function mostrarList() {
     let res = await fetch(`${url}/listas`)
     let data = await res.json()
         .catch(error => console.log(error))
-    mostrar(data)
-    
+    mostrar(data)  
 }
 mostrarList()
-
 //Muesta la lista creada mediante 2 busquedas para mostra
 const mostrar = (listas) => {
 
@@ -113,11 +51,11 @@ const mostrar = (listas) => {
                 <td class="id">${sub.id}</td>
                 <td class="Tarea">${sub.name}</td>
                 <td class="completado">
-                    <input class="validar form-check-input" id="validar${sub.id}" type="checkbox" id="flexSwitchCheckDefault">
+                    <input class="validar form-check-input" id="validar${sub.id}" type="checkbox" id="flexSwitchCheckDefault" ${sub.completed ? "checked" : ""}>
                     <label class="form-check-label" for="flexSwitchCheckDefault"></label>
                 </td>
                 <td class="opciones">
-                    <button class="editar btn btn-info" value="${sub.id}" type="button" id="editar${sub.id}" class="editar btn btn-secondary">Editar</button>
+                    <button class="editar btn btn-info" value="${sub.id}" type="button" id="editar${sub.id}" class="editar btn btn-secondary" ${sub.completed ? "disabled" : "enabled"}>Editar</button>
                     <button class="eliminar btn btn-danger" type="button" id="eliminar${sub.id}" >Eliminar</button>
                 </td>
             </tr>`
@@ -151,8 +89,7 @@ const mostrar = (listas) => {
     document.querySelector('.tbody1').innerHTML = resultado;
     resultado = "";
 }
-
-
+//Reacciones tras el evento click en un boton
 body.addEventListener("click", (e) => {
     console.log(e);
     console.log(e.target.parentElement.parentElement.id);
@@ -216,7 +153,6 @@ body.addEventListener("click", (e) => {
         }
     }
 })
-
 //funcion eliminar , recibe como parametro el ID
 async function eliminarTarea(id) {
     console.log(id);
@@ -263,13 +199,7 @@ async function eliminarSubTarea(id) {
         res = await fetch(`${url}/listTask/${id}`, options)
     mostrarList()
 }
-/**
- * Editar sub lista 
- * @param {*} id1 
- * @param {*} id2 
- * @param {*} nombre 
- */
-
+//Editar sub lista 
 async function editarSubTarea(id1, id2, nombre){
     if(nombre) {
         let options = {
@@ -291,7 +221,7 @@ async function editarSubTarea(id1, id2, nombre){
     }
     mostrarList();
 }
-
+//Checkear SubTarea
 async function completarTarea(id1, id2, nombre){
     if(nombre) {
         let options = {
@@ -310,6 +240,7 @@ async function completarTarea(id1, id2, nombre){
         res = await fetch(`${url}/listTask/${id2}`, options)
     }
 }
+//Descheckear SubTarea
 async function descompletarTarea(id1, id2, nombre){
     if(nombre) {
         let options = {
