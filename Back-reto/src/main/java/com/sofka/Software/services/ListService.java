@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class ListService {
+public class ListService implements IListServices{
     @Autowired
     private ListRepository listRepository;
 

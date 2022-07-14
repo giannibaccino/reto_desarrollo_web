@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-public class ListTaskService {
+public class ListTaskService implements IListTaskServices{
     @Autowired
     private ListTaskRepository listTaskRepository;
     public Iterable<ListTaskModel> list(){

@@ -29,8 +29,6 @@ public class ListTaskController {
         return listTaskService.updateListTask(id, listTask);
     }
 
-    // Revisa si esto que propongo está bien o no, si no está bien ¿Como lo solucionas?
-
      @DeleteMapping(path = "/listTask/{id}")
      public void deletelistTask(@PathVariable("id")Long id){
         listTaskService.deleteListTask(id);
