@@ -9,11 +9,18 @@ let resultado = ''
 let resultadoSub = ''
 let subtarea = {};
 
-//funcon boton crear , permite guardar en el input el nombre de la nueva lista a crear
-$crear.addEventListener('click', e => {
+//Funcion boton crear , permite guardar en el input el nombre de la nueva lista a crear
+$crear.addEventListener('click', (e) => {
     e.preventDefault();
     crearList(d.getElementById('inputTarea').value);
     d.getElementById('inputTarea').value = "";
+})
+//Funcion crear pero al apretar 'Enter'
+d.getElementById("principal").addEventListener('keypress', (e) => {
+    if(e.keyCode == 13 && d.getElementById('inputTarea').value != ""){
+    crearList(d.getElementById('inputTarea').value);
+    d.getElementById('inputTarea').value = "";
+    }
 })
 //Funcion crear lista , consulta la ruta del fetch y realiza el metodo post con los datos 
 async function crearList(lista) {
@@ -33,7 +40,7 @@ async function crearList(lista) {
         alert("Ingrese una tarea por favor!")
     }
 }
-//muestra las listas en la BD
+//Muestra las listas en la BD
 async function mostrarList() {
     let res = await fetch(`${url}/listas`)
     let data = await res.json()
@@ -43,7 +50,6 @@ async function mostrarList() {
 mostrarList()
 //Muesta la lista creada mediante 2 busquedas para mostra
 const mostrar = (listas) => {
-
     listas.forEach(lista => {
         resultadoSub = ''
         lista.listTask.forEach(sub => {
@@ -91,22 +97,17 @@ const mostrar = (listas) => {
 }
 //Reacciones tras el evento click en un boton
 body.addEventListener("click", (e) => {
-    console.log(e);
-    console.log(e.target.parentElement.parentElement.id);
     if (e.target.classList[0] == "EliminarTarea") {
         eliminarTarea(e.target.parentElement.parentElement.id)
     }
     if (e.target.classList[0] == "agregarSubList") {
 
-        //console.log(e.path[0].value);
         let dato = {
             nombre: e.target.previousElementSibling.value,
             id: e.path[0].value
         }
         crearSubLista(dato)
-
-    }
-    
+    }   
     /**
      * eliminar subtarea
     */
@@ -122,13 +123,13 @@ body.addEventListener("click", (e) => {
         subtarea.id = e.path[0].value
         subtarea.name = e.path[2].children[1].textContent;
         subtarea.idpadre = e.path[4].id;
+        subtarea.editing = true;
 
         let input = e.path[5].children[1];
         let btncrear = d.getElementById('crear' + e.path[4].id)
         let boton = d.getElementById('Actualizar' + e.path[4].id)
         btncrear.style.display = "none";
         boton.style.display = "";
-        console.log(e.path[4]);
         input.value = subtarea.name;
     }
     /**
@@ -141,7 +142,6 @@ body.addEventListener("click", (e) => {
      * function validar , verifica el estado del check para cambiar el estado del boton editar
      */
     if (e.target.classList[0] == "validar") {
-        console.log(e.path[2].children[3].children[0].value);
         let btnvalidar = d.getElementById('editar' + e.path[2].children[3].children[0].value)
         let check = d.getElementById('validar' + e.path[2].children[3].children[0].value).checked
         if (check) {
@@ -153,9 +153,22 @@ body.addEventListener("click", (e) => {
         }
     }
 })
-//funcion eliminar , recibe como parametro el ID
+//Reacciones tras el evento keypress en 'Enter'
+body.addEventListener("keypress", (e) => {
+    console.log(e);
+    if(e.keyCode == 13 && !subtarea.editing){
+        let datos = {
+            nombre: e.path[0].value,
+            id: e.path[1].id};
+        crearSubLista(datos);
+    }
+    if(e.keyCode == 13 && subtarea.editing){
+        editarSubTarea(e.path[1].id, subtarea.id, e.path[0].value);
+        subtarea.editing = false;
+    }
+})
+//Funcion eliminar , recibe como parametro el ID
 async function eliminarTarea(id) {
-    console.log(id);
     let options = {
         method: "DELETE",
         headers: {
@@ -188,7 +201,7 @@ async function crearSubLista({ nombre, id }) {
         alert("Ingrese una Tarea porfavor!")
     }
 }
-//eliminar subTarea
+//Eliminar subTarea
 async function eliminarSubTarea(id) {
     let options = {
         method: "DELETE",
