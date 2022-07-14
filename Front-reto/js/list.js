@@ -155,7 +155,6 @@ body.addEventListener("click", (e) => {
 })
 //Reacciones tras el evento keypress en 'Enter'
 body.addEventListener("keypress", (e) => {
-    console.log(e);
     if(e.keyCode == 13 && !subtarea.editing){
         let datos = {
             nombre: e.path[0].value,
