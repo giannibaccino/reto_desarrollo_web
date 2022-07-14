@@ -1,5 +1,5 @@
 body{
-    background:rgb(226, 211, 143);
+    background:rgb(241, 230, 180);
 }
 
 .container{
@@ -7,9 +7,9 @@ body{
     background: rgb(206, 201, 201);
     border: 4px black solid;
     display: block;
-    justify-content: center;
     margin: auto;
     width: 800px;
+    box-shadow: 10px 10px 10px black;
 }
 
 .titulo{
