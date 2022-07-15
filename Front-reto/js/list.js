@@ -123,6 +123,7 @@ body.addEventListener("click", (e) => {
         subtarea.id = e.path[0].value
         subtarea.name = e.path[2].children[1].textContent;
         subtarea.idpadre = e.path[4].id;
+        //Se agrega un .editing de tipo boolean para verificar si esta siendo editado
         subtarea.editing = true;
 
         let input = e.path[5].children[1];
@@ -155,6 +156,7 @@ body.addEventListener("click", (e) => {
 })
 //Reacciones tras el evento keypress en 'Enter'
 body.addEventListener("keypress", (e) => {
+    //Verifica si al dar "Enter" esta siendo editado o no
     if(e.keyCode == 13 && !subtarea.editing){
         let datos = {
             nombre: e.path[0].value,
@@ -211,7 +213,7 @@ async function eliminarSubTarea(id) {
         res = await fetch(`${url}/listTask/${id}`, options)
     mostrarList()
 }
-//Editar sub lista 
+//Editar subTarea (modifica el nombre de la subtarea)
 async function editarSubTarea(id1, id2, nombre){
     if(nombre) {
         let options = {
@@ -233,7 +235,7 @@ async function editarSubTarea(id1, id2, nombre){
     }
     mostrarList();
 }
-//Checkear SubTarea
+//Checkear SubTarea (setea completado en true)
 async function completarTarea(id1, id2, nombre){
     if(nombre) {
         let options = {
@@ -252,7 +254,7 @@ async function completarTarea(id1, id2, nombre){
         res = await fetch(`${url}/listTask/${id2}`, options)
     }
 }
-//Descheckear SubTarea
+//Descheckear SubTarea (setea completado en false)
 async function descompletarTarea(id1, id2, nombre){
     if(nombre) {
         let options = {
